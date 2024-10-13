@@ -1,13 +1,31 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { links } from "@/lib/data/links";
+import { gql, useQuery } from "@apollo/client";
+import type { Link as LinkType } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
+const AllLinksQuery = gql`
+query {
+    links {
+      id
+      title
+      url
+      description
+      imageUrl
+      category
+    }
+  }
+`
+
 export const HomePage = () => {
+  const { data, loading, error } = useQuery(AllLinksQuery)
+  if(loading) return <p>Loading...</p>
+  if(error) return <p>Oh no... {error.message}</p>
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-      {links.map((item) => (
+      {data.links.map((item: LinkType) => (
         <Card key={item.id} className="overflow-hidden">
           <Link href={item.url} passHref>
             {/* Wrapper for the image to enforce 16:9 aspect ratio */}
