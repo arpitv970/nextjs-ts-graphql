@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",  // Adjust this path based on your project structure
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "es6",
+    "module": "commonjs",
+    "skipLibCheck": true
+  },
+  "include": ["./prisma/**/*"]
+}

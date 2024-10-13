@@ -1,9 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { links } from "../lib/data/links";
-
 const prisma = new PrismaClient();
 
-const main = async () => {
+async function main() {
   await prisma.user.create({
     data: {
       email: `testemail@gmail.com`,
@@ -14,7 +13,7 @@ const main = async () => {
   await prisma.link.createMany({
     data: links,
   });
-};
+}
 
 main()
   .catch((e) => {
